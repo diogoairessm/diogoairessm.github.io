@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4por4</title>
+
+    <link rel="stylesheet" href="estilos.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="homebutton"
+        >^ <span class="mobileonly">voltar</span></a
+      >
+
+      <a href="#infomenu" class="infobutton"
+        ><span class="mobileonly">info</span> +</a
+      >
+
+      <!-- O menu flutuante -->
+      <div id="infomenu" class="infomenu">
+        <div class="blur"></div>
+        <div class="infocontent">
+          <p>
+            <span class="cabecalho">Identidade</span>
+          </p>
+          <p>
+            Todos p’ra MESA! consiste numa instalação interativa que convida os
+            utilizadores à reflexão sobre as suas escolhas alimentares e os
+            impactos ambientais associados. <br />Mediante uma experiência
+            sensorial e imersiva, cada indivíduo reconstitui o seu prato com
+            base na sua última refeição, interagindo fisicamente com um ambiente
+            responsivo ao movimento. A dimensão temporal estrutura a experiência
+            em três momentos: passado, presente e futuro, nos quais o utilizador
+            aprende os recursos utilizados, o que está a consumir e as possíveis
+            consequências ambientais.
+          </p>
+          <p>
+            <span class="rodape">
+              Projeto conjunto com Ana Marcos, Antônio Teixeira, Catarina Rocha,
+              Duarte Santos, Matilde Fernandes e Lara Portelinha</span
+            >
+          </p>
+
+          <!-- Botão para fechar o menu -->
+          <a href="#" class="closeinfo"
+            ><span class="mobileonly">fechar</span> x</a
+          >
+        </div>
+      </div>
+
+      <div class="carrossel-container">
+        <div class="carrossel ativo">
+          <img src="images/mesa/1.png" alt="Imagem 1" />
+        </div>
+        <div class="carrossel">
+          <img src="images/mesa/2.png" alt="Imagem 2" />
+        </div>
+        <div class="carrossel">
+          <img src="images/mesa/3.png" alt="Imagem 3" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/4.png" alt="Imagem 4" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/5.png" alt="Imagem 5" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/6.png" alt="Imagem 6" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/7.png" alt="Imagem 7" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/8.png" alt="Imagem 8" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/9.png" alt="Imagem 9" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/mesa/10.png" alt="Imagem 10" />
+        </div>
+
+        <a class="prev" onclick="mudarSlide(-1)"
+          >&lt; <span class="mobileonly">anterior</span></a
+        >
+        <a class="next" onclick="mudarSlide(1)"
+          ><span class="mobileonly">próximo</span> &gt;</a
+        >
+      </div>
+    </main>
+    <footer>
+      <a href="mailto:airesdiogo2004@gmail.com">airesdiogo2004@gmail.com ></a>
+    </footer>
+
+    <script>
+      let slideAtual = 0;
+      const slides = document.querySelectorAll(".carrossel");
+
+      function mostrarSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove("ativo");
+        });
+
+        slides[index].classList.add("ativo");
+      }
+
+      function mudarSlide(direcao) {
+        slideAtual += direcao;
+
+        if (slideAtual < 0) slideAtual = slides.length - 1;
+        if (slideAtual >= slides.length) slideAtual = 0;
+
+        mostrarSlide(slideAtual);
+      }
+
+      // Inicializar
+      window.addEventListener("DOMContentLoaded", () => {
+        mostrarSlide(slideAtual);
+      });
+
+      // ===== Scroll para mudar slide =====
+      let scrollTimeout = false;
+
+      window.addEventListener("wheel", (e) => {
+        if (scrollTimeout) return;
+
+        if (e.deltaY > 0) {
+          mudarSlide(1); // Scroll para baixo
+        } else if (e.deltaY < 0) {
+          mudarSlide(-1); // Scroll para cima
+        }
+
+        scrollTimeout = true;
+        setTimeout(() => (scrollTimeout = false), 200); // Delay de 800ms entre scrolls
+      });
+
+      // ===== Touch (mobile) para mudar slide =====
+      let touchStartY = null;
+
+      window.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+      });
+
+      window.addEventListener("touchend", (e) => {
+        if (touchStartY === null) return;
+
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchStartY - touchEndY;
+
+        if (Math.abs(deltaY) > 50) {
+          if (deltaY > 0) {
+            mudarSlide(1); // Swipe para cima
+          } else {
+            mudarSlide(-1); // Swipe para baixo
+          }
+        }
+
+        touchStartY = null;
+      });
+    </script>
+  </body>
+</html>

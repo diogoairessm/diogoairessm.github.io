@@ -1,0 +1,374 @@
+/* @Diogo Aires 2025 */
+
+@font-face {
+  font-family: minipax;
+  src: url(Minipax-Regular.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+header {
+  display: block;
+  position: relative;
+  height: 2vw;
+}
+
+main {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+
+p {
+  font-family: minipax;
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.75rem);
+}
+
+.vermelho {
+  color: red;
+  text-transform: uppercase;
+}
+
+sup {
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: gray;
+}
+
+a:hover {
+  color: red;
+}
+
+a:active {
+  color: red;
+}
+
+.sublinhado {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.colunas {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2vw;
+}
+
+.coluna {
+  display: block;
+  width: 40%;
+}
+
+.coluna p {
+  font-size: 1.1rem;
+}
+
+.indent {
+  padding-left: 15%;
+}
+
+footer {
+  display: block;
+  position: absolute;
+  padding-left: 3vw;
+  background-color: white;
+  bottom: 0;
+  height: 8vh;
+  width: 100%;
+  border-bottom: solid 2px red;
+  border-top: solid 2px red;
+  color: red;
+  font-family: Funnel Sans;
+  font-size: 1.1rem;
+  z-index: 10;
+}
+
+footer a {
+  color: red;
+  position: absolute;
+  text-decoration: underline;
+  bottom: calc(50% - (1.1rem / 2));
+}
+
+footer a:visited {
+  color: red;
+}
+
+.homebutton {
+  position: fixed;
+  top: 2vw;
+  left: 3vw;
+  font-family: Funnel Sans;
+  font-size: 1.1rem;
+  color: red;
+  cursor: pointer;
+  padding: 10px;
+  text-decoration: none;
+  background-color: white;
+  z-index: 198;
+  border: solid 2px red;
+  border-radius: 2rem;
+}
+
+.homebutton:visited {
+  color: red;
+}
+
+.homebutton:hover {
+  color: white;
+  background-color: red;
+}
+
+/* botão info+ */
+.infobutton {
+  position: fixed;
+  top: 2vw;
+  right: 3vw;
+  font-family: Funnel Sans;
+  font-size: 1.1rem;
+  color: red;
+  cursor: pointer;
+  padding: 10px;
+  text-decoration: none;
+  z-index: 200;
+}
+
+.infobutton:visited {
+  color: red;
+}
+
+/* menu inicialmente escondido */
+.infomenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 92vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 199;
+}
+
+/* torna visível quando é alvo */
+.infomenu:target {
+  opacity: 1;
+  visibility: visible;
+}
+.blur {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: red;
+  filter: blur(1.5rem);
+  z-index: 180;
+}
+
+/* conteúdo interno */
+.infocontent {
+  padding: 10vw;
+  position: relative;
+  z-index: 199;
+}
+
+.infocontent p {
+  color: whitesmoke;
+  font-size: clamp(0.85rem, 1vw + 0.6rem, 1.1rem);
+  font-family: Funnel Sans;
+  font-weight: 300;
+  margin-bottom: calc(clamp(0.85rem, 1vw + 0.6rem, 1.1rem) / 2);
+}
+
+.infolink {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.infolink:hover {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.infolink:visited {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cabecalho {
+  font-family: minipax;
+}
+
+.rodape {
+  opacity: 0.6;
+}
+
+/* botão fechar */
+.closeinfo {
+  position: fixed;
+  top: calc(2vw + 4vh);
+  right: 3vw;
+  font-family: Funnel Sans;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  text-decoration: none;
+  z-index: 301;
+}
+
+.closeinfo:visited {
+  color: white;
+}
+
+.carrossel-container {
+  position: fixed;
+  top: 2vw;
+  left: 0;
+  width: 100%;
+  height: calc(92vh - 2vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.carrossel {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.carrossel.ativo {
+  display: flex;
+  opacity: 1;
+  z-index: 1;
+}
+
+.carrossel img {
+  max-width: 80%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.prev,
+.next {
+  position: fixed;
+  bottom: 50%;
+  font-family: Funnel Sans;
+  font-size: 1.1rem;
+  color: red;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 101;
+  text-decoration: none;
+}
+
+.prev {
+  left: 3vw;
+}
+
+.next {
+  right: 3vw;
+}
+
+.mobileonly {
+  display: none;
+}
+
+@media screen and (min-width: 460px) {
+  .infomenu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    position: fixed;
+    top: 2vw;
+    left: calc(15% / 2);
+    width: 85%;
+    height: 90%;
+    z-index: 199;
+  }
+
+  .infocontent {
+    padding: 8vw;
+    position: relative;
+    z-index: 199;
+  }
+
+  .infobutton {
+    color: red;
+  }
+
+  .infobutton:visited {
+    color: red;
+  }
+  /* botão fechar */
+  .closeinfo {
+    color: red;
+  }
+
+  .closeinfo:visited {
+    color: red;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .coluna {
+    width: 30%;
+  }
+
+  .carrossel .prev,
+  .carrossel .next {
+    bottom: 9vh;
+  }
+
+  .carrossel img {
+    max-width: 70%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .coluna {
+    width: 20%;
+  }
+  .mobileonly {
+    display: inline-block;
+  }
+  .infomenu {
+    top: 2vw;
+    left: 15%;
+    width: 70%;
+    height: 90%;
+  }
+
+  .infocontent {
+    padding: 4vw;
+  }
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinescópio</title>
+
+    <link rel="stylesheet" href="estilos.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="homebutton"
+        >^ <span class="mobileonly">voltar</span></a
+      >
+
+      <a href="#infomenu" class="infobutton"
+        ><span class="mobileonly">info</span> +</a
+      >
+
+      <!-- O menu flutuante -->
+      <div id="infomenu" class="infomenu">
+        <div class="blur"></div>
+        <div class="infocontent">
+          <p>
+            <span class="cabecalho">Fotografia, Webdesign</span>
+          </p>
+          <p>
+            Cinescópio é um projeto de investigação artística interativa que
+            aproxima o cinema clássico dos média digitais contemporâneos.
+            Contextualiza filmes do início do século XX, oferecendo uma
+            plataforma que transforma a forma como o público se relaciona com a
+            história do cinema e com a experiência típica do utilizador.
+            <br />Através de uma experiência imersiva baseada na web, os
+            utilizadores podem interagir com um ambiente digital concebido como
+            uma mesa repleta de objetos. Cada objeto funciona como uma porta de
+            entrada, ativando excertos de filmes clássicos que surgem
+            acompanhados de reflexões contemporâneas, escritas e gravadas por
+            nós, que se relacionam com cada tema. Esta justaposição entre
+            passado e presente convida o utilizador a explorar criticamente
+            movimentos cinematográficos como o film noir, a Blaxploitation e o
+            cinema pre-code, promovendo um diálogo sobre a evolução das
+            narrativas culturais. Ao combinar análise histórica, interatividade
+            e reinterpretação artística, Cinescópio desafia o consumo passivo de
+            filmes, incentivando a participação ativa e a construção de novas
+            perspetivas. <br />O projeto continua exposto na .
+            <a
+              class="infolink"
+              href="https://pcd.fba.up.pt/2025/exhibition/cinescopio.html"
+              target="_blank"
+              >Exposição Online Sense of Wonder no âmbito do Processing
+              Community Day 2025 @ FBAUP</a
+            >
+          </p>
+          <p>
+            <span class="rodape">
+              Projeto conjunto com Duarte Santos, Gabriel Seixas, Matilde
+              Fernandes e Lara Portelinha</span
+            >
+          </p>
+
+          <!-- Botão para fechar o menu -->
+          <a href="#" class="closeinfo"
+            ><span class="mobileonly">fechar</span> x</a
+          >
+        </div>
+      </div>
+
+      <div class="carrossel-container">
+        <div class="carrossel ativo">
+          <img src="images/Cinescopio/1.png" alt="Imagem 1" />
+        </div>
+        <div class="carrossel">
+          <img src="images/Cinescopio/2.png" alt="Imagem 2" />
+        </div>
+        <div class="carrossel">
+          <img src="images/Cinescopio/3.png" alt="Imagem 3" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/Cinescopio/4.png" alt="Imagem 4" />
+        </div>
+
+        <div class="carrossel">
+          <img src="images/Cinescopio/5.png" alt="Imagem 5" />
+        </div>
+
+        <a class="prev" onclick="mudarSlide(-1)"
+          >&lt; <span class="mobileonly">anterior</span></a
+        >
+        <a class="next" onclick="mudarSlide(1)"
+          ><span class="mobileonly">próximo</span> &gt;</a
+        >
+      </div>
+    </main>
+    <footer>
+      <a href="mailto:airesdiogo2004@gmail.com">airesdiogo2004@gmail.com ></a>
+    </footer>
+
+    <script>
+      let slideAtual = 0;
+      const slides = document.querySelectorAll(".carrossel");
+
+      function mostrarSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove("ativo");
+        });
+
+        slides[index].classList.add("ativo");
+      }
+
+      function mudarSlide(direcao) {
+        slideAtual += direcao;
+
+        if (slideAtual < 0) slideAtual = slides.length - 1;
+        if (slideAtual >= slides.length) slideAtual = 0;
+
+        mostrarSlide(slideAtual);
+      }
+
+      // Inicializar
+      window.addEventListener("DOMContentLoaded", () => {
+        mostrarSlide(slideAtual);
+      });
+
+      // ===== Scroll para mudar slide =====
+      let scrollTimeout = false;
+
+      window.addEventListener("wheel", (e) => {
+        if (scrollTimeout) return;
+
+        if (e.deltaY > 0) {
+          mudarSlide(1); // Scroll para baixo
+        } else if (e.deltaY < 0) {
+          mudarSlide(-1); // Scroll para cima
+        }
+
+        scrollTimeout = true;
+        setTimeout(() => (scrollTimeout = false), 200); // Delay de 800ms entre scrolls
+      });
+
+      // ===== Touch (mobile) para mudar slide =====
+      let touchStartY = null;
+
+      window.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+      });
+
+      window.addEventListener("touchend", (e) => {
+        if (touchStartY === null) return;
+
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchStartY - touchEndY;
+
+        if (Math.abs(deltaY) > 50) {
+          if (deltaY > 0) {
+            mudarSlide(1); // Swipe para cima
+          } else {
+            mudarSlide(-1); // Swipe para baixo
+          }
+        }
+
+        touchStartY = null;
+      });
+    </script>
+  </body>
+</html>
