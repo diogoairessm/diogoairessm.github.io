@@ -87,7 +87,7 @@ a:active {
 
 footer {
   display: block;
-  position: absolute;
+  position: fixed;
   padding-left: 3vw;
   background-color: white;
   bottom: 0;
