@@ -258,7 +258,7 @@ footer a:visited {
 
 .carrossel {
   display: none;
-  position: absolute;
+  position: fixed;
   justify-content: center;
   align-items: center;
   width: 100%;
