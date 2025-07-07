@@ -344,8 +344,8 @@ footer a:visited {
     width: 30%;
   }
 
-  .carrossel .prev,
-  .carrossel .next {
+  .prev,
+  .next {
     bottom: 9vh;
   }
 
